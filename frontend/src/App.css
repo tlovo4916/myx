@@ -1,0 +1,20 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px; /* 为固定头部留出空间 */
+}
+
+/* 海底捞品牌色彩 */
+:root {
+  --primary-color: #d4237a;
+  --secondary-color: #ff6b35;
+  --accent-color: #ffd700;
+  --text-dark: #333;
+  --text-light: #666;
+  --bg-light: #f8f9fa;
+} 
