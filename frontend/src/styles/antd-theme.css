@@ -1,0 +1,239 @@
+/* 妙宇轩 Ant Design 主题定制 */
+
+/* 主色调覆盖 */
+.ant-btn-primary {
+  background-color: #8B0000;
+  border-color: #8B0000;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: #DC143C;
+  border-color: #DC143C;
+}
+
+.ant-btn-primary:active {
+  background-color: #660000;
+  border-color: #660000;
+}
+
+/* 链接颜色 */
+.ant-typography a {
+  color: #8B0000;
+}
+
+.ant-typography a:hover {
+  color: #DC143C;
+}
+
+/* 菜单选中状态 */
+.ant-menu-item-selected {
+  color: #8B0000 !important;
+}
+
+.ant-menu-item:hover {
+  color: #8B0000 !important;
+}
+
+/* 标签页 */
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #8B0000 !important;
+}
+
+.ant-tabs-ink-bar {
+  background: linear-gradient(90deg, #8B0000, #B8860B);
+}
+
+/* 输入框焦点 */
+.ant-input:focus,
+.ant-input-focused {
+  border-color: #8B0000;
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
+}
+
+/* 选择器 */
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: #8B0000;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #8B0000 !important;
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2) !important;
+}
+
+/* 日期选择器 */
+.ant-picker:hover,
+.ant-picker-focused {
+  border-color: #8B0000;
+}
+
+.ant-picker-focused {
+  box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
+}
+
+/* 复选框 */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #8B0000;
+  border-color: #8B0000;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: #8B0000;
+}
+
+/* 单选框 */
+.ant-radio-checked .ant-radio-inner {
+  border-color: #8B0000;
+}
+
+.ant-radio-checked .ant-radio-inner::after {
+  background-color: #8B0000;
+}
+
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner {
+  border-color: #8B0000;
+}
+
+/* 开关 */
+.ant-switch-checked {
+  background-color: #8B0000;
+}
+
+/* 滑块 */
+.ant-slider-track {
+  background-color: #8B0000;
+}
+
+.ant-slider-handle {
+  border-color: #8B0000;
+}
+
+.ant-slider-handle:hover,
+.ant-slider-handle:focus {
+  border-color: #DC143C;
+  box-shadow: 0 0 0 5px rgba(139, 0, 0, 0.2);
+}
+
+/* 进度条 */
+.ant-progress-bg {
+  background-color: #8B0000;
+}
+
+/* 加载指示器 */
+.ant-spin-dot-item {
+  background-color: #8B0000;
+}
+
+/* 标签 */
+.ant-tag {
+  border-radius: 6px;
+}
+
+/* 卡片 */
+.ant-card {
+  border-radius: 12px;
+}
+
+/* 按钮圆角 */
+.ant-btn {
+  border-radius: 6px;
+}
+
+/* 输入框圆角 */
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+  border-radius: 6px;
+}
+
+/* 模态框 */
+.ant-modal-content {
+  border-radius: 12px;
+}
+
+/* 抽屉 */
+.ant-drawer-content {
+  border-radius: 12px 0 0 12px;
+}
+
+/* 通知 */
+.ant-notification-notice {
+  border-radius: 8px;
+}
+
+/* 消息 */
+.ant-message-notice-content {
+  border-radius: 8px;
+}
+
+/* 工具提示 */
+.ant-tooltip-inner {
+  border-radius: 6px;
+}
+
+/* 气泡确认框 */
+.ant-popover-inner {
+  border-radius: 8px;
+}
+
+/* 下拉菜单 */
+.ant-dropdown-menu {
+  border-radius: 8px;
+}
+
+/* 表格 */
+.ant-table-container {
+  border-radius: 8px;
+}
+
+/* 分页 */
+.ant-pagination-item-active {
+  border-color: #8B0000;
+}
+
+.ant-pagination-item-active a {
+  color: #8B0000;
+}
+
+.ant-pagination-item:hover {
+  border-color: #8B0000;
+}
+
+.ant-pagination-item:hover a {
+  color: #8B0000;
+}
+
+/* 步骤条 */
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: #8B0000;
+  border-color: #8B0000;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #8B0000;
+  border-color: #8B0000;
+}
+
+/* 时间轴 */
+.ant-timeline-item-head-blue {
+  background-color: #8B0000;
+  border-color: #8B0000;
+}
+
+/* 锚点 */
+.ant-anchor-link-active > .ant-anchor-link-title {
+  color: #8B0000;
+}
+
+/* 回到顶部 */
+.ant-back-top {
+  background-color: #8B0000;
+}
+
+.ant-back-top:hover {
+  background-color: #DC143C;
+} 

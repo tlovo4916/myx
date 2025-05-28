@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
@@ -11,7 +11,7 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = React.memo(({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +24,8 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (username, password) => {
+  // 使用 useCallback 优化登录函数
+  const login = useCallback(async (username, password) => {
     try {
       const response = await axios.post('/api/auth/login', {
         username,
@@ -43,9 +44,10 @@ export const AuthProvider = ({ children }) => {
         message: error.response?.data?.message || '登录失败' 
       };
     }
-  };
+  }, []);
 
-  const register = async (userData) => {
+  // 使用 useCallback 优化注册函数
+  const register = useCallback(async (userData) => {
     try {
       await axios.post('/api/auth/register', userData);
       return { success: true, message: '注册成功' };
@@ -55,25 +57,29 @@ export const AuthProvider = ({ children }) => {
         message: error.response?.data?.message || '注册失败' 
       };
     }
-  };
+  }, []);
 
-  const logout = () => {
+  // 使用 useCallback 优化登出函数
+  const logout = useCallback(() => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
-  };
+  }, []);
 
-  const value = {
+  // 使用 useMemo 优化 context value，避免不必要的重新渲染
+  const value = useMemo(() => ({
     user,
     login,
     register,
     logout,
     loading
-  };
+  }), [user, login, register, logout, loading]);
 
   return (
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
-}; 
+});
+
+AuthProvider.displayName = 'AuthProvider'; 

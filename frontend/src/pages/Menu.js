@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Row, Col, Card, Typography, Tabs, Tag, Spin } from 'antd';
 import { CrownOutlined } from '@ant-design/icons';
 import { dishAPI } from '../services/api';
+import LazyImage from '../components/LazyImage';
+import LoadingSpinner from '../components/LoadingSpinner';
 import styled from 'styled-components';
 
 const { Title, Paragraph } = Typography;
@@ -12,7 +14,7 @@ const MenuContainer = styled.div`
   background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
 `;
 
-const DishCard = styled(Card)`
+const DishCard = React.memo(styled(Card)`
   height: 100%;
   border-radius: 12px;
   overflow: hidden;
@@ -57,7 +59,7 @@ const DishCard = styled(Card)`
     color: #654321;
     line-height: 1.6;
   }
-`;
+`);
 
 const CategoryTabs = styled(Tabs)`
   .ant-tabs-tab {
@@ -83,12 +85,39 @@ const CategoryTabs = styled(Tabs)`
   }
 `;
 
-const Menu = () => {
+const DishItem = React.memo(({ dish }) => {
+  return (
+    <DishCard
+      cover={
+        <LazyImage 
+          src={dish.image_url || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3'}
+          alt={dish.name}
+          style={{ height: '200px' }}
+        />
+      }
+    >
+      <Card.Meta
+        title={dish.name}
+        description={dish.description}
+      />
+      <div className="dish-price">¥{dish.price}</div>
+      <div className="dish-tags">
+        {dish.is_recommended && <Tag color="#8B0000">招牌推荐</Tag>}
+        {dish.is_spicy && <Tag color="#DC143C">香辣</Tag>}
+        <Tag color="#B8860B">{dish.category}</Tag>
+      </div>
+    </DishCard>
+  );
+});
+
+DishItem.displayName = 'DishItem';
+
+const Menu = React.memo(() => {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const categories = [
+  const categories = useMemo(() => [
     { key: 'all', label: '全部特色' },
     { key: '招牌菜', label: '🏮 招牌名菜' },
     { key: '地方特色', label: '🌶️ 地方特色' },
@@ -97,13 +126,9 @@ const Menu = () => {
     { key: '精品主食', label: '🍚 精品主食' },
     { key: '养生汤品', label: '🍵 养生汤品' },
     { key: '特色小食', label: '🥟 特色小食' },
-  ];
+  ], []);
 
-  useEffect(() => {
-    fetchDishes();
-  }, []);
-
-  const fetchDishes = async (category = null) => {
+  const fetchDishes = useCallback(async (category = null) => {
     setLoading(true);
     try {
       const response = await dishAPI.getDishes(category);
@@ -113,20 +138,33 @@ const Menu = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleCategoryChange = (key) => {
+  const handleCategoryChange = useCallback((key) => {
     setActiveCategory(key);
     if (key === 'all') {
       fetchDishes();
     } else {
       fetchDishes(key);
     }
-  };
+  }, [fetchDishes]);
 
-  const filteredDishes = activeCategory === 'all' 
-    ? dishes 
-    : dishes.filter(dish => dish.category === activeCategory);
+  const filteredDishes = useMemo(() => {
+    return activeCategory === 'all' 
+      ? dishes 
+      : dishes.filter(dish => dish.category === activeCategory);
+  }, [dishes, activeCategory]);
+
+  const tabItems = useMemo(() => 
+    categories.map(cat => ({
+      key: cat.key,
+      label: cat.label,
+    })), [categories]
+  );
+
+  useEffect(() => {
+    fetchDishes();
+  }, [fetchDishes]);
 
   return (
     <MenuContainer>
@@ -159,57 +197,41 @@ const Menu = () => {
           onChange={handleCategoryChange}
           centered
           size="large"
-          items={categories.map(cat => ({
-            key: cat.key,
-            label: cat.label,
-          }))}
+          items={tabItems}
           style={{ marginBottom: 40 }}
         />
 
-        <Spin spinning={loading}>
+        {loading ? (
+          <LoadingSpinner text="正在加载菜品..." />
+        ) : (
           <Row gutter={[24, 24]}>
             {filteredDishes.map(dish => (
               <Col xs={24} sm={12} md={8} lg={6} key={dish.id}>
-                <DishCard
-                  cover={
-                    <img 
-                      alt={dish.name}
-                      src={dish.image_url || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3'}
-                    />
-                  }
-                >
-                  <Card.Meta
-                    title={dish.name}
-                    description={dish.description}
-                  />
-                  <div className="dish-price">¥{dish.price}</div>
-                  <div className="dish-tags">
-                    {dish.is_recommended && <Tag color="#8B0000">招牌推荐</Tag>}
-                    {dish.is_spicy && <Tag color="#DC143C">香辣</Tag>}
-                    <Tag color="#B8860B">{dish.category}</Tag>
-                  </div>
-                </DishCard>
+                <DishItem dish={dish} />
               </Col>
             ))}
           </Row>
-        </Spin>
+        )}
 
         {filteredDishes.length === 0 && !loading && (
           <div style={{ 
             textAlign: 'center', 
             padding: 60,
-            background: 'rgba(255,255,255,0.8)',
-            borderRadius: 12,
-            margin: '40px 0'
+            color: '#8B4513'
           }}>
-            <Paragraph style={{ fontSize: 16, color: '#8B4513' }}>
-              暂无此类菜品，敬请期待更多特色美食
+            <Title level={3} style={{ color: '#8B4513' }}>
+              暂无相关菜品
+            </Title>
+            <Paragraph>
+              请尝试选择其他分类或稍后再试
             </Paragraph>
           </div>
         )}
       </div>
     </MenuContainer>
   );
-};
+});
+
+Menu.displayName = 'Menu';
 
 export default Menu; 

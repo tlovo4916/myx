@@ -223,4 +223,13 @@ config.local.js
 .env.local
 .env.development.local
 .env.test.local
-.env.production.local 
+.env.production.local
+
+# Windows 脚本文件（开发环境专用，不适合服务器部署）
+*.bat
+*.cmd
+
+# 临时优化文档（内容已整合到主文档）
+optimization*.md
+deployment-comparison*.md
+OPTIMIZATION_*.md 

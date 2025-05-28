@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button, Dropdown, Avatar } from 'antd';
 import { UserOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
@@ -142,12 +142,13 @@ const UserSection = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = React.memo(() => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [current, setCurrent] = useState('home');
 
-  const menuItems = [
+  // 使用 useMemo 优化菜单项，避免每次渲染都重新创建
+  const menuItems = useMemo(() => [
     {
       key: 'home',
       label: <Link to="/">首页</Link>,
@@ -176,9 +177,28 @@ const Header = () => {
       key: 'news',
       label: <Link to="/news">最新资讯</Link>,
     },
-  ];
+  ], []);
 
-  const userMenuItems = [
+  // 使用 useCallback 优化事件处理函数
+  const handleLogout = useCallback(() => {
+    logout();
+    navigate('/');
+  }, [logout, navigate]);
+
+  const handleLogin = useCallback(() => {
+    navigate('/login');
+  }, [navigate]);
+
+  const handleRegister = useCallback(() => {
+    navigate('/register');
+  }, [navigate]);
+
+  const handleMenuClick = useCallback((e) => {
+    setCurrent(e.key);
+  }, []);
+
+  // 使用 useMemo 优化用户菜单项
+  const userMenuItems = useMemo(() => [
     {
       key: 'profile',
       icon: <UserOutlined />,
@@ -188,12 +208,9 @@ const Header = () => {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: '退出登录',
-      onClick: () => {
-        logout();
-        navigate('/');
-      },
+      onClick: handleLogout,
     },
-  ];
+  ], [handleLogout]);
 
   return (
     <StyledHeader>
@@ -209,7 +226,7 @@ const Header = () => {
         selectedKeys={[current]}
         items={menuItems}
         style={{ flex: 1, minWidth: 0, border: 'none' }}
-        onClick={(e) => setCurrent(e.key)}
+        onClick={handleMenuClick}
       />
       
       <UserSection>
@@ -228,13 +245,13 @@ const Header = () => {
           <>
             <Button 
               className="login-btn"
-              onClick={() => navigate('/login')}
+              onClick={handleLogin}
             >
               登录
             </Button>
             <Button 
               className="register-btn"
-              onClick={() => navigate('/register')}
+              onClick={handleRegister}
             >
               注册
             </Button>
@@ -243,6 +260,8 @@ const Header = () => {
       </UserSection>
     </StyledHeader>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header; 

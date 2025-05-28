@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Layout, Row, Col, Typography, Space } from 'antd';
 import { PhoneOutlined, MailOutlined, EnvironmentOutlined, GlobalOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -63,7 +63,39 @@ const StyledFooter = styled(AntFooter)`
   }
 `;
 
-const Footer = () => {
+const Footer = React.memo(() => {
+  // 使用 useMemo 优化静态数据，避免每次渲染都重新创建
+  const aboutLinks = useMemo(() => [
+    { href: "#", text: "品牌故事" },
+    { href: "#", text: "企业文化" },
+    { href: "#", text: "发展历程" },
+    { href: "#", text: "社会责任" },
+    { href: "#", text: "传统文化传承" }
+  ], []);
+
+  const brandItems = useMemo(() => [
+    { href: "#", icon: "🏛️", text: "妙宇轩宴会中心" },
+    { href: "#", icon: "🏮", text: "妙宇轩餐厅" },
+    { href: "#", icon: "💒", text: "喜宴宫" },
+    { href: "#", icon: "🏛️", text: "传承馆" },
+    { href: "#", icon: "👩‍🍳", text: "项巧云" }
+  ], []);
+
+  const cultureLinks = useMemo(() => [
+    { href: "#", text: "抓周礼仪" },
+    { href: "#", text: "传统婚宴" },
+    { href: "#", text: "地方特色菜品" },
+    { href: "#", text: "家和文化" },
+    { href: "#", text: "民俗文化" }
+  ], []);
+
+  const contactInfo = useMemo(() => [
+    { icon: <PhoneOutlined />, text: "400-6666-8888" },
+    { icon: <MailOutlined />, text: "service@myx111.xyz" },
+    { icon: <EnvironmentOutlined />, text: "云南省红河州" },
+    { icon: <GlobalOutlined />, text: "www.myx111.xyz" }
+  ], []);
+
   return (
     <StyledFooter>
       <div className="container">
@@ -71,43 +103,35 @@ const Footer = () => {
           <Col xs={24} sm={12} md={6}>
             <div className="footer-section">
               <Title level={4}>关于妙宇轩</Title>
-              <a href="#" className="footer-link">品牌故事</a>
-              <a href="#" className="footer-link">企业文化</a>
-              <a href="#" className="footer-link">发展历程</a>
-              <a href="#" className="footer-link">社会责任</a>
-              <a href="#" className="footer-link">传统文化传承</a>
+              {aboutLinks.map((link, index) => (
+                <a key={index} href={link.href} className="footer-link">
+                  {link.text}
+                </a>
+              ))}
             </div>
           </Col>
           
           <Col xs={24} sm={12} md={6}>
             <div className="footer-section">
               <Title level={4}>品牌矩阵</Title>
-              <div className="brand-item">
-                <a href="#" className="footer-link">🏛️ 妙宇轩宴会中心</a>
-              </div>
-              <div className="brand-item">
-                <a href="#" className="footer-link">🏮 妙宇轩餐厅</a>
-              </div>
-              <div className="brand-item">
-                <a href="#" className="footer-link">💒 喜宴宫</a>
-              </div>
-              <div className="brand-item">
-                <a href="#" className="footer-link">🏛️ 传承馆</a>
-              </div>
-              <div className="brand-item">
-                <a href="#" className="footer-link">👩‍🍳 项巧云</a>
-              </div>
+              {brandItems.map((item, index) => (
+                <div key={index} className="brand-item">
+                  <a href={item.href} className="footer-link">
+                    {item.icon} {item.text}
+                  </a>
+                </div>
+              ))}
             </div>
           </Col>
           
           <Col xs={24} sm={12} md={6}>
             <div className="footer-section">
               <Title level={4}>传统文化</Title>
-              <a href="#" className="footer-link">抓周礼仪</a>
-              <a href="#" className="footer-link">传统婚宴</a>
-              <a href="#" className="footer-link">地方特色菜品</a>
-              <a href="#" className="footer-link">家和文化</a>
-              <a href="#" className="footer-link">民俗文化</a>
+              {cultureLinks.map((link, index) => (
+                <a key={index} href={link.href} className="footer-link">
+                  {link.text}
+                </a>
+              ))}
             </div>
           </Col>
           
@@ -115,18 +139,11 @@ const Footer = () => {
             <div className="footer-section">
               <Title level={4}>联系我们</Title>
               <Space direction="vertical" size="small">
-                <Text>
-                  <PhoneOutlined /> 400-6666-8888
-                </Text>
-                <Text>
-                  <MailOutlined /> service@miaoyuxuan.com
-                </Text>
-                <Text>
-                  <EnvironmentOutlined /> 云南省红河州
-                </Text>
-                <Text>
-                  <GlobalOutlined /> www.miaoyuxuan.com
-                </Text>
+                {contactInfo.map((contact, index) => (
+                  <Text key={index}>
+                    {contact.icon} {contact.text}
+                  </Text>
+                ))}
               </Space>
             </div>
           </Col>
@@ -145,6 +162,8 @@ const Footer = () => {
       </div>
     </StyledFooter>
   );
-};
+});
+
+Footer.displayName = 'Footer';
 
 export default Footer; 
