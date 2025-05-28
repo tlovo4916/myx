@@ -10,6 +10,7 @@ const { Title, Paragraph } = Typography;
 
 const MenuContainer = styled.div`
   padding: 40px 0;
+  padding-top: 104px;
   min-height: calc(100vh - 160px);
   background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
 `;
@@ -119,7 +120,7 @@ const Menu = React.memo(() => {
 
   const categories = useMemo(() => [
     { key: 'all', label: '全部特色' },
-    { key: '招牌菜', label: '🏮 招牌名菜' },
+    { key: '招牌菜', label: '🏅 招牌名菜' },
     { key: '地方特色', label: '🌶️ 地方特色' },
     { key: '传统炖品', label: '🍲 传统炖品' },
     { key: '时令蔬菜', label: '🥬 时令蔬菜' },

@@ -60,11 +60,9 @@ const StyledHeader = styled(AntHeader)`
 `;
 
 const Logo = styled.div`
-  color: white;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
-  line-height: 64px;
-  margin-right: 30px;
+  color: white;
   font-family: '华文行楷', 'STXingkai', serif;
   flex-shrink: 0;
   
@@ -77,6 +75,21 @@ const Logo = styled.div`
     &:hover {
       color: #FFD700;
     }
+  }
+  
+  .brand-logo {
+    height: 40px;
+    width: auto;
+    margin-right: 8px;
+    object-fit: contain;
+    display: block;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  
+  a:hover .brand-logo {
+    transform: scale(1.1) rotate(-5deg);
+    filter: brightness(1.1);
   }
   
   .brand-icon {
@@ -177,6 +190,10 @@ const Header = React.memo(() => {
       key: 'news',
       label: <Link to="/news">最新资讯</Link>,
     },
+    {
+      key: 'about',
+      label: <Link to="/about">关于我们</Link>,
+    },
   ], []);
 
   // 使用 useCallback 优化事件处理函数
@@ -216,7 +233,16 @@ const Header = React.memo(() => {
     <StyledHeader>
       <Logo>
         <Link to="/">
-          <span className="brand-icon">🏮</span>
+          <img 
+            src={`${process.env.PUBLIC_URL}/images/logo.png`}
+            alt="妙宇轩" 
+            className="brand-logo"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextSibling.style.display = 'inline';
+            }}
+          />
+          <span className="brand-icon" style={{ display: 'none' }}>🏮</span>
           妙宇轩
         </Link>
       </Logo>

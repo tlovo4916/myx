@@ -285,8 +285,8 @@ performanceMonitor.measureApiCall('getDishes', apiFunction);
 ## 📞 联系方式
 
 **红河妙宇投资管理有限责任公司**
-- 📍 地址：云南省红河州
-- 📞 电话：400-6666-8888
+- 📍 地址：云南省红河州蒙自市
+- 📞 电话：13988010682
 - 📧 邮箱：service@myx111.xyz
 - 🌐 网站：[www.myx111.xyz](http://www.myx111.xyz)
 

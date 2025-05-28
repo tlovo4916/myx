@@ -19,6 +19,7 @@ const Login = React.lazy(() => import('./pages/Login'));
 const Register = React.lazy(() => import('./pages/Register'));
 const Brands = React.lazy(() => import('./pages/Brands'));
 const Culture = React.lazy(() => import('./pages/Culture'));
+const About = React.lazy(() => import('./pages/About'));
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                   <Route path="/news" element={<News />} />
                   <Route path="/brands" element={<Brands />} />
                   <Route path="/culture" element={<Culture />} />
+                  <Route path="/about" element={<About />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                 </Routes>

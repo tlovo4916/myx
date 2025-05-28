@@ -7,8 +7,9 @@ import styled from 'styled-components';
 const { Title, Paragraph } = Typography;
 
 const PageContainer = styled.div`
-  padding-top: 64px;
   min-height: 100vh;
+  padding-top: 64px;
+  margin-top: -64px;
 `;
 
 const HeroSection = styled.div`
@@ -20,7 +21,7 @@ const HeroSection = styled.div`
   
   h1 {
     font-size: 3.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     font-family: '华文行楷', 'STXingkai', serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
@@ -35,7 +36,8 @@ const HeroSection = styled.div`
 `;
 
 const CultureCard = styled(Card)`
-  height: 100%;
+  height: 100% !important;
+  min-height: 750px !important;
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s ease;
@@ -47,11 +49,23 @@ const CultureCard = styled(Card)`
     border-color: #FFD700;
   }
   
+  .ant-card-body {
+    padding: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
   .culture-header {
     background: linear-gradient(135deg, #8B0000, #DC143C);
     color: white;
     padding: 40px 20px;
     text-align: center;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
     
     .culture-icon {
       font-size: 80px;
@@ -74,6 +88,28 @@ const CultureCard = styled(Card)`
   
   .culture-content {
     padding: 30px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 200px);
+    
+    .culture-description {
+      margin-bottom: 20px;
+      flex-shrink: 0;
+      
+      .ant-typography {
+        margin-bottom: 0 !important;
+      }
+    }
+    
+    .traditions-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 25px;
+      overflow-y: auto;
+    }
     
     .tradition-item {
       background: #FFF8DC;
@@ -81,6 +117,11 @@ const CultureCard = styled(Card)`
       border-radius: 10px;
       margin-bottom: 15px;
       border-left: 4px solid #8B0000;
+      flex-shrink: 0;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
       
       .tradition-title {
         font-weight: bold;
@@ -91,7 +132,15 @@ const CultureCard = styled(Card)`
       .tradition-desc {
         color: #8B4513;
         font-size: 14px;
+        line-height: 1.5;
       }
+    }
+    
+    .button-container {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 20px;
+      flex-shrink: 0;
     }
   }
 `;
@@ -338,10 +387,10 @@ const Culture = () => {
             </Paragraph>
           </div>
 
-          <Row gutter={[32, 32]}>
+          <Row gutter={[32, 32]} align="stretch" style={{ minHeight: '800px' }}>
             {cultureServices.map(service => (
-              <Col xs={24} lg={8} key={service.id}>
-                <CultureCard>
+              <Col xs={24} lg={8} key={service.id} style={{ display: 'flex' }}>
+                <CultureCard style={{ width: '100%' }}>
                   <div className="culture-header">
                     <span className="culture-icon">{service.icon}</span>
                     <div className="culture-title">{service.title}</div>
@@ -349,16 +398,20 @@ const Culture = () => {
                   </div>
                   
                   <div className="culture-content">
-                    <Paragraph>{service.description}</Paragraph>
+                    <div className="culture-description">
+                      <Paragraph>{service.description}</Paragraph>
+                    </div>
                     
-                    {service.traditions.map((tradition, index) => (
-                      <div key={index} className="tradition-item">
-                        <div className="tradition-title">{tradition.title}</div>
-                        <div className="tradition-desc">{tradition.desc}</div>
-                      </div>
-                    ))}
+                    <div className="traditions-container">
+                      {service.traditions.map((tradition, index) => (
+                        <div key={index} className="tradition-item">
+                          <div className="tradition-title">{tradition.title}</div>
+                          <div className="tradition-desc">{tradition.desc}</div>
+                        </div>
+                      ))}
+                    </div>
                     
-                    <div style={{ textAlign: 'center', marginTop: 25 }}>
+                    <div className="button-container">
                       <Button 
                         type="primary"
                         size="large"
@@ -422,14 +475,14 @@ const Culture = () => {
                     我们拥有专业的婚宴策划团队，丰富的传统文化知识，
                     以及完善的服务体系，为您的婚礼提供全方位的支持。
                   </Paragraph>
-                  <Space direction="vertical" size="middle" style={{ marginTop: '30px' }}>
-                    <Tag color="gold" style={{ fontSize: '14px', padding: '5px 15px' }}>
+                  <Space direction="vertical" size="middle" style={{ marginTop: '30px', width: '100%' }} align="center">
+                    <Tag color="gold" style={{ fontSize: '14px', padding: '8px 20px', minWidth: '160px', textAlign: 'center' }}>
                       <CrownOutlined /> 专业策划团队
                     </Tag>
-                    <Tag color="gold" style={{ fontSize: '14px', padding: '5px 15px' }}>
+                    <Tag color="gold" style={{ fontSize: '14px', padding: '8px 20px', minWidth: '160px', textAlign: 'center' }}>
                       <HeartOutlined /> 个性化定制
                     </Tag>
-                    <Tag color="gold" style={{ fontSize: '14px', padding: '5px 15px' }}>
+                    <Tag color="gold" style={{ fontSize: '14px', padding: '8px 20px', minWidth: '160px', textAlign: 'center' }}>
                       <GiftOutlined /> 全程贴心服务
                     </Tag>
                   </Space>

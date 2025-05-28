@@ -13,6 +13,7 @@ const { TextArea } = Input;
 
 const ReservationContainer = styled.div`
   padding: 40px 0;
+  padding-top: 104px;
   min-height: calc(100vh - 160px);
   background: linear-gradient(135deg, #faf8f5 0%, #f5f2ed 100%);
 `;

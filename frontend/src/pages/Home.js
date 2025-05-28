@@ -8,8 +8,8 @@ import styled from 'styled-components';
 const { Title, Paragraph } = Typography;
 
 const HeroSection = styled.div`
-  height: 100vh;
-  min-height: 700px;
+  height: calc(100vh + 64px);
+  min-height: calc(700px + 64px);
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(139, 0, 0, 0.3)),
               url('/images/hero-bg.jpg') center/cover;
   display: flex;
@@ -18,6 +18,7 @@ const HeroSection = styled.div`
   text-align: center;
   color: white;
   position: relative;
+  margin-top: -64px;
   padding-top: 64px;
   
   &::before {
@@ -524,14 +525,14 @@ const Home = () => {
             </Col>
             <Col xs={12} sm={8} md={6} lg={4} xl={4}>
               <div className="brand-item">
-                <div className="brand-icon">🏛️</div>
+                <div className="brand-icon">⛩️</div>
                 <div className="brand-name">传承馆</div>
                 <div className="brand-desc">文化传承基地</div>
               </div>
             </Col>
             <Col xs={12} sm={8} md={6} lg={4} xl={4}>
               <div className="brand-item">
-                <div className="brand-icon">👩‍🍳</div>
+                <div className="brand-icon">👵🏻</div>
                 <div className="brand-name">项巧云</div>
                 <div className="brand-desc">地方特色美食</div>
               </div>

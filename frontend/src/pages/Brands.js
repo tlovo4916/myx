@@ -7,27 +7,30 @@ import styled from 'styled-components';
 const { Title, Paragraph } = Typography;
 
 const PageContainer = styled.div`
-  padding-top: 64px;
   min-height: 100vh;
+  padding-top: 64px;
+  margin-top: -64px;
 `;
 
 const HeroSection = styled.div`
   background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #B8860B 100%);
   color: white;
-  padding: 80px 0;
+  padding: 100px 0;
   text-align: center;
   
   h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 3.5rem;
+    margin-bottom: 60px;
     font-family: '华文行楷', 'STXingkai', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   
   p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #D2B48C;
     max-width: 800px;
     margin: 0 auto;
+    line-height: 1.6;
   }
 `;
 
@@ -141,14 +144,14 @@ const Brands = () => {
       description: '专注于高端宴会服务，提供一站式宴会解决方案，承办各类商务宴请、庆典活动、会议餐饮等高端服务。',
       features: [
         '豪华宴会厅设计',
+        '一对一管家服务',
         '专业宴会策划团队',
         '高端食材定制菜品',
-        '一对一管家服务',
-        '完善的音响设备'
+        '顶尖音响灯光设备'
       ],
       location: '云南省开远市灵泉西路方圆荟·杰特开远4楼',
-      phone: '18608805188',
-      capacity: '可容纳500人同时用餐'
+      phone: '0873-3130377',
+      capacity: '三大宴会厅可容纳200人同时用餐，私人定制包厢涵盖会议、商务等场景，最大包厢可容纳20人'
     },
     {
       id: 2,
@@ -161,11 +164,11 @@ const Brands = () => {
         '地方特色菜品',
         '传统制作工艺',
         '文化主题包间',
-        '茶艺表演服务'
+        '主持司仪服务'
       ],
       location: '云南省红河州各地连锁',
       phone: '18608805188',
-      capacity: '多种规格包间可选'
+      capacity: '可选多种特色包间'
     },
     {
       id: 3,
@@ -182,41 +185,41 @@ const Brands = () => {
       ],
       location: '云南省红河州个旧市金湖西路23号豪林新界二幢',
       phone: '13988010682',
-      capacity: '婚宴专用厅可容纳300人'
+      capacity: '婚宴专用厅可容纳100人，承接婚宴、寿宴、满月宴、升学宴、乔迁宴等各类宴会'
     },
     {
       id: 4,
       name: '传承馆',
       subtitle: '文化传承基地',
-      icon: '🏛️',
+      icon: '⛩️',
       description: '专注于中华传统文化的传承与弘扬，集文化展示、体验、教育于一体，是传统文化爱好者的精神家园。',
       features: [
-        '传统文化展示',
-        '非遗技艺体验',
-        '文化教育培训',
-        '传统礼仪服务',
-        '文化主题活动'
+        '传承抓周文化',
+        '体验非遗技艺',
+        '家庭文化熏陶',
+        '摄影摄像服务',
+        '传统礼仪服务'
       ],
       location: '云南省红河哈尼族彝族自治州建水县迎晖路260号',
       phone: '13988010682',
-      capacity: '文化体验馆及展示厅'
+      capacity: '传统文化体验馆'
     },
     {
       id: 5,
       name: '项巧云',
       subtitle: '地方特色美食',
-      icon: '👩‍🍳',
+      icon: '👵🏻',
       description: '以项巧云大师的名字命名，专注于挖掘和传承地方特色美食，保护传统烹饪技艺，传播地方饮食文化。',
       features: [
-        '非遗传承烹饪技艺',
+        '传承烹饪技艺',
         '地方特色小吃',
         '传统手工制作',
         '文化故事讲解',
         '烹饪技艺展示'
       ],
-      location: '云南省红河州建水县',
-      phone: '13988010682',
-      capacity: '特色小食体验馆'
+      location: '云南省红河州个旧市金湖西路23号豪林新界二幢背后',
+      phone: '小张娘娘电话',
+      capacity: '特色卤味体验馆'
     }
   ];
 
